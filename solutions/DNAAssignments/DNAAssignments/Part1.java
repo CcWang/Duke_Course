@@ -43,5 +43,5 @@ public class Part1 {
         System.out.println("Original DNA is "+dna4);
         String gen4=findSimpleGene(dna4);
         System.out.println("Gene is "+gen4);
-;    }
+  }
 }
