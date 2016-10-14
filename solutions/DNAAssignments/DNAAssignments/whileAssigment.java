@@ -1,4 +1,4 @@
-
+import edu.duke.*;
 /**
  * Write a description of whileAssigment here.
  * 
@@ -85,11 +85,32 @@ public class whileAssigment {
     }
     public void testOn(String dna){
         System.out.println("Testing printAllGenes on "+ dna);
-        printAllGenes(dna);
+        //printAllGenes(dna);
+        StorageResource genes = getAllGenes(dna);
+        for(String s:genes.data()){
+            System.out.println(s);
+        }
     }
     public void test(){
         testOn("ATGATCTAATTTATGCTGCAACGGTGAAGA");
         testOn("");
         testOn("ATGATCATAAGAAGATAATAGAGGGCCATGTAA");
     }
+    
+    public StorageResource getAllGenes(String dna){
+       //create an empty StorageResource
+       StorageResource geneList = new StorageResource();
+       int startIndex = 0;
+        while(true){
+            String currentGene = findGenes(dna,startIndex);
+            if(currentGene.isEmpty()){
+                break;
+            }
+            geneList.add(currentGene);
+            startIndex = dna.indexOf(currentGene,startIndex)+currentGene.length();
+        }
+        return geneList;
+    }
+    
+    
 }

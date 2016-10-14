@@ -15,4 +15,6 @@ comment6.params=dna
 comment6.target=void\ testOn(java.lang.String)
 comment7.params=
 comment7.target=void\ test()
-numComments=8
+comment8.params=dna
+comment8.target=edu.duke.StorageResource\ getAllGenes(java.lang.String)
+numComments=9
