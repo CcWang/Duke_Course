@@ -1,4 +1,5 @@
 import edu.duke.*;
+
 /**
  * Write a description of Part1 here.
  * 
@@ -36,14 +37,14 @@ public class Part1 {
  }
  
  public static String findGene(String dna, int where){
-     int startIdx = dna.indexOf("ATG", where);
+     int startIdx = dna.indexOf("atg", where);
      if(startIdx == -1){
          return "";
      }
      
-     int taaIdx = findStopCodon(dna,startIdx,"TAA");
-     int tagIdx = findStopCodon(dna,startIdx,"TAG");
-     int tgaIdx = findStopCodon(dna,startIdx,"TGA");
+     int taaIdx = findStopCodon(dna,startIdx,"taa");
+     int tagIdx = findStopCodon(dna,startIdx,"tag");
+     int tgaIdx = findStopCodon(dna,startIdx,"tga");
      int minIdx = 0;
      if(taaIdx == -1 ||(tagIdx !=-1 && tagIdx <taaIdx)){
          minIdx = tagIdx;
@@ -96,6 +97,7 @@ public class Part1 {
  
   public static StorageResource getAllGenes(String dna){
       int startIdx = 0;
+      
     StorageResource geneList = new StorageResource();
     while(true){
        String currentGene=findGene(dna,startIdx);
@@ -103,6 +105,7 @@ public class Part1 {
            break;
         }
        geneList.add(currentGene);
+    
        startIdx = dna.indexOf(currentGene,startIdx)+currentGene.length();
     }
     return geneList;
@@ -124,8 +127,10 @@ public class Part1 {
     String dna3="ATGxxxyyyaaaTAAATGzzzTAGmmmATGlllTGAjjjddd";
     String dna1 = "ATGATCTAATTTATGCTGCAACGGTGAAGA";
     String dna2 ="";
-    System.out.println("testing dna3: "+dna3);
-    StorageResource list = getAllGenes(dna3);
+     URLResource fr = new URLResource("https://users.cs.duke.edu/~rodger/GRch38dnapart.fa");
+     String dna = fr.asString();
+    System.out.println("testing dna3: "+dna);
+    StorageResource list = getAllGenes(dna);
     for(String g:list.data()){
         System.out.println(g);
     }
