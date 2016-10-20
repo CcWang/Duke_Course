@@ -1,6 +1,6 @@
 import edu.duke.*;
 import org.apache.commons.csv.*;
-import java.util.Map;
+import java.io.*;;
 /**
  * Write a description of BabyBirths here.
  * 
@@ -34,7 +34,8 @@ public class BabyBirths {
         System.out.println("Total Born: "+totalBirths+" Total Female: "+totalF+" Total Male: "+totalM);
     };
     public int getRank(int year, String name, String gender){
-        FileResource fr=new FileResource("us_babynames/us_babynames_by_year/yob"+year+".csv");
+       FileResource fr=new FileResource("us_babynames/us_babynames_by_year/yob"+year+".csv");
+     
        int nameBorn = 0;
         int rank=1;
        for(CSVRecord rec:fr.getCSVParser(false)){
@@ -73,6 +74,44 @@ public class BabyBirths {
             };
         };
         return "NO NAME";
+    };
+    
+    public static int yearOfHighestRank(String name,String gender ){
+        DirectoryResource dr = new DirectoryResource();
+        int higestRank=0;
+        int higestYear = 0;
+        
+        for(File f:dr.selectedFiles()){
+            int rank=1;
+            String yearName = f.getName();
+            int yobIdx = yearName.indexOf("yob");
+            String year = yearName.substring(yobIdx+3,yobIdx+7);
+            int currentYear = Integer.parseInt(year);
+            FileResource fr = new FileResource(f);
+            for(CSVRecord rec:fr.getCSVParser(false)){                
+                int numBorn=0;
+                if(rec.get(1).equals(gender)){
+                    if(rec.get(0).equals(name)){
+                        numBorn = Integer.parseInt(rec.get(2));
+                    }else{
+                       if(Integer.parseInt(rec.get(2))>numBorn){
+                           rank ++;
+                        }; 
+                    };
+                };
+            };
+            if(higestRank == 0 ){
+                higestRank = rank;
+                higestYear = currentYear;
+            }else{
+                if(higestRank > rank){
+                    higestRank = rank;
+                    higestYear = currentYear;
+                }
+            }
+        };
+        System.out.println(higestRank +" in year "+higestYear);
+        return higestRank;
     };
     public void whatIsNameInYear(String name, int year, int newYear, String gender){
         int rank = getRank(year,name,gender);
