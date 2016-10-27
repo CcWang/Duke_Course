@@ -31,7 +31,44 @@ public class CaesarCipher {
             
         };
     return encrypted.toString();
-    }
+    };
+    
+    public String encryotTwoKeys(String input, int key1,int key2){
+        StringBuilder sb = new StringBuilder(input);
+        String albLower = "abcdefghijklmnopqrstuvwxyz";
+        String albUpper = albLower.toUpperCase();
+        String key1Lower = albLower.substring(key1)+albLower.substring(0,key1);
+        String key1Upper = key1Lower.toUpperCase();
+        String key2Lower = albLower.substring(key2)+albLower.substring(0,key2);
+        String key2Upper = key2Lower.toUpperCase();
+        for(int i=0;i<input.length();i++){
+            char current = sb.charAt(i);
+            if(Character.isLowerCase(current)){
+                int idxL=albLower.indexOf(current);
+                if(idxL!=-1){
+                    if(i%2==0){
+                        char newChar = key1Lower.charAt(idxL);
+                        sb.setCharAt(i,newChar);
+                    }else{
+                        char newChar = key2Lower.charAt(idxL);
+                        sb.setCharAt(i,newChar);
+                    }
+                }
+            }else{
+                int idxU=albUpper.indexOf(current);
+                if(idxU !=-1){
+                    if(i%2==0){
+                        char newChar = key1Upper.charAt(idxU);
+                        sb.setCharAt(i,newChar);
+                    }else{
+                        char newChar = key2Upper.charAt(idxU);
+                        sb.setCharAt(i,newChar);
+                    }
+                };
+            }
+        };
+        return sb.toString();
+    };
     
     public void testCaesar(){
         int key =17;
