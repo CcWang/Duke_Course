@@ -7,12 +7,17 @@ import java.util.*;
  * @version (a version number or a date)
  */
 public class CaesarCipher {
+    private String alphabetU;
+    private String alphabetL;
+    private String shiftedAlphabet;
+    private String shiftedAlphabetL;
+    
     public String encrypt(String input, int key){
         StringBuilder encrypted = new StringBuilder(input);
-        String alphabetU="ABCDEFGHIJKLNMOPQRSTUVWXYZ";
-        String alphabetL="abcdefghijklmnopqrstuvwxyz";
-        String shiftedAlphabet = alphabetU.substring(key)+alphabetU.substring(0,key);
-        String shiftedAlphabetL = alphabetL.substring(key)+alphabetL.substring(0,key);
+        alphabetU="ABCDEFGHIJKLNMOPQRSTUVWXYZ";
+        alphabetL="abcdefghijklmnopqrstuvwxyz";
+        shiftedAlphabet = alphabetU.substring(key)+alphabetU.substring(0,key);
+        shiftedAlphabetL = alphabetL.substring(key)+alphabetL.substring(0,key);
         for(int i=0; i<encrypted.length();i++){
             char currChar = encrypted.charAt(i);
             if(Character.isLowerCase(currChar)){
